@@ -4,26 +4,35 @@
 2, 4 -> 16
 */
 
+int GetNumber (string numStr)
+{
+    bool isNum = false;
+    int num = 0;
+    
+    while (!isNum)
+    {   
+        if (int.TryParse(numStr, out num))
+            isNum = true;
+        else 
+        {
+            Console.WriteLine("Вы ввели не число, введите число:");
+            numStr = Console.ReadLine() ?? "";
+        }
+    }
+    return num;
+}
+
 Console.WriteLine("Введите первое число:");
-string numStr1 = Console.ReadLine() ?? "";
+int num1 = GetNumber(Console.ReadLine() ?? "");
 
-if (!int.TryParse(numStr1, out int num1)) 
+Console.WriteLine("Введите второе число > 0:");
+int num2 = GetNumber(Console.ReadLine() ?? "");
+
+while (num2 <= 0)
 {
-    Console.WriteLine("Вы ввели не число");
-    return;
+     Console.WriteLine("Второе число должно быть >0");
+     Console.WriteLine("Введите второе число > 0:");
+     num2 = GetNumber(Console.ReadLine() ?? "");
 }
 
-Console.WriteLine("Введите второе число >0 :");
-string numStr2 = Console.ReadLine() ?? "";
-
-if (!int.TryParse(numStr2, out int num2)) 
-{
-    Console.WriteLine("Вы ввели не число");
-    return;
-}
-
-if (num2 > 0)
-{
 Console.WriteLine($"{num1} в степени {num2} = " + Math.Pow(num1, num2));
-}
-else Console.WriteLine("Второе число должно быть >0");
